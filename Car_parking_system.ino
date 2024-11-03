@@ -1,4 +1,4 @@
-/* Hi this RAJ  the author for this code
+/* Hi this is RAJ  the author for this code
 THIS IS A CODE FOR ARDUINO CAR PARKING SYSTEM
 REQUIREMENTS:
 ARDUINO UNO
