@@ -4,6 +4,9 @@ trig pin to pin 9
 echo pin on pin 10
 gnd pin on gnd
 vcc pin on +5v
+
+then compile and run the program 
+open the serial monitor and it's READY!!!!!
 */
 const int trigPin = 9;
 const int echoPin = 10;
