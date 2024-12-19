@@ -34,12 +34,9 @@ distanceInch = duration*0.0133/2;
 
 Serial.print("Distance: "); // Prints string "Distance" on the LCD
 Serial.print(distanceCm); // Prints the distance value from the sensor
-Serial.print("  cm");
-delay(10);
+Serial.print("  cm    ");
+delay(1000);
 
-Serial.print("Distance: ");
-Serial.print(distanceInch);
-Serial.print("inch");
-delay(10);
+
 Serial.println();
 }
