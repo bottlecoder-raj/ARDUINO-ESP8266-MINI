@@ -12,7 +12,7 @@ void setup() {
 
   Serial.begin(9600);
 
-  WiFi.begin("DESKTOP-IOT", "12345678");
+  WiFi.begin("Raj_4g", "66665555");
 
 
 
@@ -53,12 +53,16 @@ void loop() {
    
 
 
-    client.println("HTTP/1.1 200 OK");
+  client.println("HTTP/1.1 200 OK");
 client.println("Content-Type: text/html");
 client.println("Connection: close");
 client.println();
 
 client.println("<!DOCTYPE html><html><head><title>Home Automation</title>");
+
+// ADD THIS LINE ↓
+client.println("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
+
 client.println("<style>body{background:#000;color:#fff;text-align:center;font-family:sans-serif}.button{display:inline-block;padding:12px 20px;margin:10px;background:#4CAF50;color:white;text-decoration:none;border-radius:6px}</style>");
 client.println("</head><body><h1>ESP8266 Home Control</h1>");
 client.println("<a class='button' href='/led1on'>Switch 1 ON</a>");
@@ -70,4 +74,5 @@ client.println("<a class='button' href='/off'>ALL OFF</a>");
 client.println("</body></html>");
 
 client.stop();
+
   }}
