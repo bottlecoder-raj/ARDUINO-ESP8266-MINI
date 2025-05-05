@@ -12,7 +12,7 @@ void setup() {
 
   Serial.begin(9600);
 
-  WiFi.begin("Raj_4g", "66665555");
+  WiFi.begin("USER_NAME", "***PASS**");
 
 
 
