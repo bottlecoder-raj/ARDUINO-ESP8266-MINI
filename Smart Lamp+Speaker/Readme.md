@@ -11,7 +11,7 @@ Here're some of the project's best features:
 *   OLED DISPLAY FOR ANIMATIONS/TIME
 *   RGB ENABLED LIGHT
 *   PORTABLE
-*   TIME
+*   Show Time
 <br>
 <h2>🛠️ Installation Steps:</h2>
  Install <a href="https://www.arduino.cc/en/software/">Arduino IDE</a> and necessary extension at the start of code.</p>
