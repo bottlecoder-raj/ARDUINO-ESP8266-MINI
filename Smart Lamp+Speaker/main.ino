@@ -2,8 +2,12 @@
 #include <ESP8266WebServer.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
+#include <NTPClient.h>
+#include <WiFiUdp.h>
 #include <Fonts/FreeSerifBoldItalic12pt7b.h>
 #include <Fonts/FreeSerifBoldItalic9pt7b.h>
+#include <Fonts/FreeSansBold9pt7b.h>
+
 
 #define LAMP_PIN D5
 #define RED_PIN D6
@@ -222,9 +226,38 @@ const byte PROGMEM WIFI[][512] = {
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 127, 252, 0, 0, 0, 0, 0, 15, 255, 255, 240, 0, 0, 0, 0, 127, 255, 255, 254, 0, 0, 0, 3, 255, 0, 0, 127, 192, 0, 0, 15, 240, 0, 0, 15, 240, 0, 0, 63, 128, 0, 0, 0, 252, 0, 0, 254, 0, 0, 0, 0, 63, 0, 1, 248, 0, 0, 0, 0, 31, 128, 3, 224, 0, 255, 255, 0, 7, 192, 7, 128, 15, 255, 255, 240, 1, 240, 31, 0, 127, 252, 31, 254, 0, 248, 60, 1, 254, 0, 0, 127, 128, 60, 120, 3, 240, 0, 0, 15, 224, 30, 240, 15, 192, 0, 0, 3, 240, 15, 120, 31, 0, 0, 0, 0, 252, 30, 60, 124, 0, 0, 0, 0, 62, 60, 30, 240, 1, 255, 255, 0, 15, 120, 15, 224, 15, 255, 255, 240, 7, 240, 7, 192, 31, 224, 3, 248, 3, 224, 3, 128, 126, 0, 0, 126, 1, 192, 0, 1, 248, 0, 0, 31, 128, 0, 0, 3, 224, 0, 0, 7, 192, 0, 0, 7, 128, 0, 0, 1, 224, 0, 0, 15, 0, 31, 248, 0, 248, 0, 0, 30, 0, 255, 255, 0, 120, 0, 0, 15, 3, 255, 255, 192, 112, 0, 0, 7, 15, 224, 3, 240, 224, 0, 0, 3, 159, 0, 0, 249, 192, 0, 0, 1, 252, 0, 0, 63, 128, 0, 0, 1, 248, 0, 0, 31, 0, 0, 0, 0, 224, 0, 0, 14, 0, 0, 0, 0, 0, 31, 248, 0, 0, 0, 0, 0, 0, 127, 254, 0, 0, 0, 0, 0, 0, 252, 63, 0, 0, 0, 0, 0, 3, 224, 7, 192, 0, 0, 0, 0, 7, 128, 1, 224, 0, 0, 0, 0, 3, 192, 3, 192, 0, 0, 0, 0, 1, 224, 7, 128, 0, 0, 0, 0, 0, 240, 15, 0, 0, 0, 0, 0, 0, 120, 30, 0, 0, 0, 0, 0, 0, 60, 60, 0, 0, 0, 0, 0, 0, 30, 120, 0, 0, 0, 0, 0, 0, 15, 240, 0, 0, 0, 0, 0, 0, 7, 224, 0, 0, 0, 0, 0, 0, 3, 192, 0, 0, 0, 0, 0, 0, 1, 128, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 };
 
+// ======== WiFi Credentials =========
 const char *ssid = "Raj_4g";
 const char *password = "55556666";
+
+// ======== Time Setup =========
+WiFiUDP ntpUDP;
+NTPClient timeClient(ntpUDP, "pool.ntp.org", 19800, 60000); 
+// 19800 = UTC +5:30 for IST (adjust for your timezone in seconds)
+
+
+void showTime(){
+String formattedTime = timeClient.getFormattedTime(); // "HH:MM:SS"
+  String hoursMinutes = formattedTime.substring(0, 5);  // HH:MM
+  String seconds = formattedTime.substring(6);          // SS
+
+  // Clear screen
+  display.clearDisplay();
+
+  // Draw big hours:minutes
+  display.setFont(&FreeSansBold9pt7b);
+  display.setTextSize(2);
+  int16_t x1, y1;
+  uint16_t w, h;
+  display.getTextBounds(hoursMinutes, 0, 0, &x1, &y1, &w, &h);
+  display.setCursor((SCREEN_WIDTH - w) / 2, 50);
+  display.setTextColor(WHITE);
+  display.println(hoursMinutes);
+
+  display.display();
+  delay(100);
   
+}
 void lampfunc(String lamp_stat, int val) {
   
   if (lamp_stat == "ON") {
@@ -266,6 +299,7 @@ void lampfunc(String lamp_stat, int val) {
     display.display();
     animation_lamp=0;
   }
+    
 }
 void rgbfunc(String rgb_stat,int val,int r,int g,int b){
    if (rgb_stat == "ON") {
@@ -316,6 +350,7 @@ void rgbfunc(String rgb_stat,int val,int r,int g,int b){
     display.display();
     animation_RGB=0;
   }
+  
   }
 
 void toggle(int currentState){
@@ -346,6 +381,7 @@ void toggle(int currentState){
     lastState = currentState;
   
   delay(20); // small debounce delay
+  
 }
 
   ESP8266WebServer server(80);
@@ -674,7 +710,7 @@ void setup() {
   display.clearDisplay();
   display.setFont(&FreeSerifBoldItalic12pt7b);
   display.setCursor(5, 40);  // y must be larger to fit tall fonts
-  display.setTextSize(3);
+  display.setTextSize(2);
   display.setTextColor(WHITE);
   display.print("...");
   display.display();
@@ -686,6 +722,8 @@ void setup() {
 
   Serial.println("\nConnected to WiFi");
   Serial.println(WiFi.localIP());
+  // Initialize NTP
+  timeClient.begin();
   for (int frame = 0; frame < FRAME_COUNT2; frame++) {
     display.clearDisplay();
     display.drawBitmap(32, 0, WIFI[frame], FRAME_WIDTH, FRAME_HEIGHT, 1);
@@ -734,10 +772,25 @@ void setup() {
   Serial.println("HTTP server started");
 }
 
+unsigned long lastTimeUpdate = 0;
+const unsigned long timeInterval = 1000; // update every 1s
+
 void loop() {
-  server.handleClient();  // keep handling web requests
+  // Always check web requests immediately
+  server.handleClient();
+
+  // Handle button
   int currentState = digitalRead(buttonPin);
   if (currentState != lastState) {
-  toggle(currentState);
+    toggle(currentState);
+    lastState = currentState;
+  }
+
+  // Update time once per second without blocking
+  if (millis() - lastTimeUpdate >= timeInterval) {
+    lastTimeUpdate = millis();
+    timeClient.update();
+    showTime();
   }
 }
+
