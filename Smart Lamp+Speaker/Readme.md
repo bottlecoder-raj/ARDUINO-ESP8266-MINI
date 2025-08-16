@@ -79,6 +79,16 @@ You can add more, if you need but remember to do the changes in the code also an
 <li>Connect the audio signals with bluetooth out and amp in with connection of speakers  also.</li>
 </ul>
 </p>
+<p>
+ <h3>DO THE CHANGES IN CODE</h3>
+ <ul>
+  <li> BEFORE UPLOADING: Update with your wifi credentials at line 230 and 231.</li>
+  <li>Check the pins connected from line 12-16</li>
+  <li>Required instruction will be provided in code as comments</li>
+ 
+ </ul>
+ 
+</p>
 <h2>CONGRATULATIONS!!!!!!</h2>
 </p>
 <hr>
