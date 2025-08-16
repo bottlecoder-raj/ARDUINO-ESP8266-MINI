@@ -1,3 +1,4 @@
+//install the required Libraries
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
 #include <Adafruit_GFX.h>
@@ -8,7 +9,7 @@
 #include <Fonts/FreeSerifBoldItalic9pt7b.h>
 #include <Fonts/FreeSansBold9pt7b.h>
 
-
+//------Initialising the hardware pins
 #define LAMP_PIN D5
 #define RED_PIN D6
 #define BLUE_PIN D8
@@ -17,7 +18,7 @@
 int lastState = HIGH;       
 
 
-#define SCREEN_I2C_ADDR 0x3c  // or 0x3C
+#define SCREEN_I2C_ADDR 0x3c  // Check for address of you oled display
 #define SCREEN_WIDTH 128      // OLED display width, in pixels
 #define SCREEN_HEIGHT 64      // OLED display height, in pixels
 #define OLED_RST_PIN -1       // Reset pin (-1 if not available)
@@ -29,14 +30,13 @@ int animation_RGB=0;
 #define FRAME_DELAY (42)
 #define FRAME_WIDTH (64)
 #define FRAME_HEIGHT (64)
-#define FRAME_COUNT1 (sizeof(startup) / sizeof(startup[0]))
-#define FRAME_COUNT2 (sizeof(WIFI) / sizeof(WIFI[0]))
-#define FRAME_COUNT3 (sizeof(sett) / sizeof(sett[0]))
-#define FRAME_COUNT4 (sizeof(blue) / sizeof(blue[0]))
-#define FRAME_COUNT5 (sizeof(warm) / sizeof(warm[0]))
-#define FRAME_COUNT6 (sizeof(RGB) / sizeof(RGB[0]))
-#define FRAME_COUNT7 (sizeof(MUTE) / sizeof(MUTE[0]))
-#define FRAME_COUNT8 (sizeof(music) / sizeof(music[0]))
+#define FRAME_COUNT1 (sizeof(startup) / sizeof(startup[0])) //Animation og Heartbeat
+#define FRAME_COUNT2 (sizeof(WIFI) / sizeof(WIFI[0]))  //animation og wifi logo
+#define FRAME_COUNT3 (sizeof(sett) / sizeof(sett[0]))  //animation of setting not used
+#define FRAME_COUNT5 (sizeof(warm) / sizeof(warm[0]))   //animation of bulb
+#define FRAME_COUNT6 (sizeof(RGB) / sizeof(RGB[0]))     //animation of rgb
+#define FRAME_COUNT7 (sizeof(MUTE) / sizeof(MUTE[0]))   //animation of bluetooth off
+#define FRAME_COUNT8 (sizeof(music) / sizeof(music[0]))  //animation og bluetooth on
 
 const byte PROGMEM music[][512] = {
   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,127,0,0,0,0,0,0,0,255,192,0,0,0,0,0,0,231,240,0,0,0,0,0,0,224,255,128,0,0,0,0,0,224,63,240,0,0,0,0,0,224,15,240,0,0,0,0,0,224,0,56,0,0,0,0,0,224,0,56,0,0,0,0,0,224,0,56,0,0,0,0,0,255,128,56,0,0,0,0,0,255,224,56,0,0,0,0,0,243,248,56,0,0,0,0,0,224,127,248,0,0,0,0,0,224,63,240,0,0,0,0,0,224,7,240,0,0,0,0,0,224,0,0,0,0,0,0,0,224,0,0,0,0,0,0,0,224,0,0,0,0,0,0,0,224,0,0,0,0,0,0,0,224,0,0,0,0,0,0,0,224,0,0,0,0,0,0,0,224,0,0,0,0,0,0,0,224,0,0,0,0,0,0,0,224,0,0,0,0,0,0,0,224,0,0,0,0,0,0,0,224,0,0,0,0,0,0,0,224,0,0,0,0,0,0,0,224,0,0,0,0,0,0,0,224,0,0,0,0,0,0,0,224,0,0,0,0,0,0,0,224,0,0,0,0,0,0,1,224,0,0,0,0,0,0,1,224,0,0,0,0,0,0,7,224,0,0,0,0,0,7,255,224,0,0,0,0,0,63,254,224,0,0,0,0,0,127,248,224,0,0,0,0,0,248,0,224,0,0,0,0,0,224,0,224,0,0,0,0,0,192,0,224,0,0,0,0,1,192,0,192,0,0,0,0,1,192,0,192,0,0,0,0,1,192,1,192,0,0,0,0,0,224,1,192,0,0,0,0,0,240,3,128,0,0,0,0,0,124,63,128,0,0,0,0,0,63,255,0,0,0,0,0,0,15,252,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -235,7 +235,7 @@ WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, "pool.ntp.org", 19800, 60000); 
 // 19800 = UTC +5:30 for IST (adjust for your timezone in seconds)
 
-
+//FUNCTION TO SHOW TIME........................
 void showTime(){
 String formattedTime = timeClient.getFormattedTime(); // "HH:MM:SS"
   String hoursMinutes = formattedTime.substring(0, 5);  // HH:MM
@@ -258,6 +258,7 @@ String formattedTime = timeClient.getFormattedTime(); // "HH:MM:SS"
   delay(100);
   
 }
+//FUNCTION FOR WARM LAMP..........................
 void lampfunc(String lamp_stat, int val) {
   
   if (lamp_stat == "ON") {
@@ -301,6 +302,7 @@ void lampfunc(String lamp_stat, int val) {
   }
     
 }
+//FUNCTION FOR RGB LED......................
 void rgbfunc(String rgb_stat,int val,int r,int g,int b){
    if (rgb_stat == "ON") {
     int r0=r * val/255;
@@ -352,7 +354,7 @@ void rgbfunc(String rgb_stat,int val,int r,int g,int b){
   }
   
   }
-
+//FUNCTION FOR TOGGLE SWITCH.....................
 void toggle(int currentState){
    if (currentState == LOW) {
       Serial.println("Button Pressed");
@@ -385,7 +387,7 @@ void toggle(int currentState){
 }
 
   ESP8266WebServer server(80);
-
+//Start of html page.................................................
 const char MAIN_page[] PROGMEM = R"=====(
 <!DOCTYPE html>
 <html lang="en">
@@ -685,7 +687,7 @@ const char MAIN_page[] PROGMEM = R"=====(
 
 </html>
 )=====";
-
+//Initialisation of node mcu and other inputs/outputs...............................
 void setup() {
   display.begin(SSD1306_SWITCHCAPVCC, SCREEN_I2C_ADDR);
   Serial.begin(115200);
@@ -724,6 +726,7 @@ void setup() {
   Serial.println(WiFi.localIP());
   // Initialize NTP
   timeClient.begin();
+//wifi animation calling  ........................
   for (int frame = 0; frame < FRAME_COUNT2; frame++) {
     display.clearDisplay();
     display.drawBitmap(32, 0, WIFI[frame], FRAME_WIDTH, FRAME_HEIGHT, 1);
