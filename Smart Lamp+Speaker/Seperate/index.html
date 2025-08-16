@@ -1,281 +1,297 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Smart Lamp</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #000;
-      padding: 2rem;
-      text-align: center;
-    }
-    .container {
-      margin: 0 auto;
-      font-family: cursive;
-      background: #f5f393;
-      box-shadow: 0 0 10px rgba(0, 0, 0, .1);
-      padding: 2rem;
-      border-radius: 10px;
-    }
-    .switch-group {
-      margin-bottom: 2.3rem;
-      padding-bottom: 1.5rem;
-      border-bottom: 1px solid #fff;
-    }
-    .label-switch {
-      display: inline-block;
-      margin-bottom: 1rem;
-      font-size: 1.15rem;
-      font-weight: bold;
-    }
-    .toggle-switch {
-      width: 50px;
-      height: 28px;
-      position: relative;
-      display: inline-block;
-      margin-left: 1rem;
-      vertical-align: middle;
-    }
-    .toggle-switch input {
-      display: none;
-    }
-    .slider {
-      position: absolute;
-      cursor:default;
-      background-color: #969595;
-      border-radius: 28px;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      transition: .3s;
-    }
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 20px;
-      width: 20px;
-      left: 4px;
-      bottom: 4px;
-      background-color: #fff;
-      border-radius: 50%;
-      transition: .3s;
-    }
-    .toggle-switch input:checked + .slider {
-      background-color: rgb(9, 236, 58);
-    }
-    .toggle-switch input:checked + .slider:before {
-      transform: translateX(22px);
-    }
-    .slider.round {
-      border-radius: 28px;
-      background-color: #e01709;
-    }
-    .brightness-control {
-      margin-top: 1.1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-    }
-    input[type=range] {
-      width: 160px;
-    }
-    .bright-value {
-      font-size: 1.1rem;
-      min-width: 35px;
-    }
-    .rgb-group {
-      margin-top: 1.2rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem .5rem;
-      align-items: center;
-      justify-content: center;
-    }
-    .rgb-group label {
-      font-weight: 500;
-      margin-right: .4rem;
-    }
-    .color-table {
-      border-collapse: collapse;
-      margin: .7rem auto 0 auto;
-    }
-    .color-table td {
-      width: 38px;
-      height: 38px;
-      cursor: pointer;
-      border: 2px solid transparent;
-      transition: border .2s;
-    }
-    .color-table td.selected {
-      border: 2px solid #333;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Smart Lamp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #ffffff;
+            /* white gray */
+            padding: 2rem;
+            text-align: center;
+            color: #000;
+            /* black text by default */
+        }
+
+        .container {
+            max-width: 600px;
+            /* adjust overall page width */
+            margin: 0 auto;
+            /* center horizontally */
+            padding: 20px;
+        }
+
+        .switch-group {
+            margin-bottom: 2.3rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #000;
+        }
+
+        .label-switch {
+            display: inline-block;
+            margin-bottom: 1rem;
+            font-size: 1.15rem;
+            font-weight: bold;
+            color: #000;
+        }
+
+        h1,
+        h2,
+        h3,
+        p,
+        label,
+        span {
+            color: #000;
+            /* black for headings, numbers, status */
+        }
+
+        /* Glass-style toggle switch */
+        .toggle-switch {
+            width: 50px;
+            height: 28px;
+            position: relative;
+            display: inline-block;
+            margin-left: 1rem;
+            vertical-align: middle;
+        }
+
+        .toggle-switch input {
+            display: none;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            background: rgba(255, 0, 0, 0.507);
+            border-radius: 28px;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            transition: .3s;
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 4px;
+            bottom: 4px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            transition: .3s;
+            box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.4),
+                0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .toggle-switch input:checked+.slider {
+            background: rgb(77, 168, 104);
+        }
+
+        .toggle-switch input:checked+.slider:before {
+            transform: translateX(22px);
+        }
+
+        .color-table {
+            margin: 15px auto;
+            /* centers the table horizontally */
+            border-spacing: 10px;
+            /* keeps spacing between tiles */
+        }
+
+
+        /* Glass-style color tiles */
+        .color-table td {
+            width: 38px;
+            height: 38px;
+            cursor: pointer;
+            border-radius: 6px;
+            border: none;
+            background-clip: padding-box;
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.2),
+                0 2px 6px rgba(0, 0, 0, 0.3);
+            transition: transform .2s, outline .2s;
+        }
+
+        .color-table td:hover {
+            transform: scale(1.1);
+            outline: 2px solid #000;
+        }
+
+        .color-table td.selected {
+            outline: 2px solid #000;
+        }
+
+        .color-table.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        
+    </style>
 </head>
+
 <body>
-  <div class="container">
-    <h1>Smart Lamp</h1>
+    <div class="container">
+        <h1>Smart Lamp</h1>
+        
 
-    <!-- Speaker Switch -->
-    <div class="switch-group">
-      <span class="label-switch">Speaker</span>
-      <label class="toggle-switch">
-        <input type="checkbox" id="switch1" checked>
-        <span class="slider round"></span>
-      </label>
-      <div id="status1" style="margin-top:1rem;color:#333;">Status: ON</div>
+        <div class="switch-group">
+            <span class="label-switch">Lamp</span>
+            <label class="toggle-switch">
+                <input type="checkbox" id="switch2">
+                <span class="slider round"></span>
+            </label>
+            <div id="status2" style="margin-top:1rem;color:#333;">Status: OFF</div>
+            <div class="brightness-control">
+                <label for="brightness2">Brightness:</label>
+                <input type="range" min="0" max="220" value="50" id="brightness2" step="1">
+                <span class="bright-value" id="brightValue2">128</span>
+            </div>
+        </div>
+
+        <div class="switch-group">
+            <span class="label-switch">RGB Light</span>
+            <label class="toggle-switch">
+                <input type="checkbox" id="switch3">
+                <span class="slider round"></span>
+            </label>
+            <div id="status3" style="margin-top:1rem;color:#333;">Status: OFF</div>
+            <div class="brightness-control">
+                <label for="brightness3">Brightness:</label>
+                <input type="range" min="0" max="220" value="50" id="brightness3" step="1">
+                <span class="bright-value" id="brightValue3">128</span>
+            </div>
+            <div class="rgb-group">
+                <label>Pick Color:</label>
+                <input type="color" id="colorPicker" value="#b57edc">
+            </div>
+            <table class="color-table">
+                <tr>
+                    <td style="background:#ff0000" data-color="#ff0000"></td>
+                    <td style="background:#00ff00" data-color="#00ff00"></td>
+                    <td style="background:#0000ff" data-color="#0000ff"></td>
+                </tr>
+                <tr>
+                    <td style="background:#8400ff" data-color="#8400ff"></td>
+                    <td style="background:#00ffff" data-color="#00ffff"></td>
+                    <td style="background:#ff00ff" data-color="#ff00ff"></td>
+                </tr>
+                <tr>
+                    <td style="background:#e74900" data-color="#e74900"></td>
+                    <td style="background:#002fff" data-color="#002fff"></td>
+                    <td style="background:#b57edc" data-color="#b57edc"></td>
+                </tr>
+            </table>
+            <div id="selectedColorBox" style="margin-top:.7rem;font-size:1rem;">
+                Selected: <span id="colorCode">#ff0000</span>
+            </div>
+        </div>
     </div>
 
-    <!-- Lamp Switch -->
-    <div class="switch-group">
-      <span class="label-switch">Lamp</span>
-      <label class="toggle-switch">
-        <input type="checkbox" id="switch2">
-        <span class="slider round"></span>
-      </label>
-      <div id="status2" style="margin-top:1rem;color:#333;">Status: OFF</div>
-      <div class="brightness-control">
-        <label for="brightness2">Brightness:</label>
-        <input type="range" min="0" max="255" value="128" id="brightness2" step="1">
-        <span class="bright-value" id="brightValue2">128</span>
-      </div>
-    </div>
+    <script>
+        function sendUpdate(device, status, brightness = null, color = null) {
+            let url = `/update?device=${device}&status=${status}`;
+            if (brightness !== null) url += `&brightness=${brightness}`;
+            if (color !== null) url += `&color=${encodeURIComponent(color)}`;
+            fetch(url)
+                .then(response => response.text())
+                .then(data => console.log(data))
+                .catch(error => console.error("Error:", error));
+        }
 
-    <!-- RGB Light -->
-    <div class="switch-group">
-      <span class="label-switch">RGB Light</span>
-      <label class="toggle-switch">
-        <input type="checkbox" id="switch3">
-        <span class="slider round"></span>
-      </label>
-      <div id="status3" style="margin-top:1rem;color:#333;">Status: OFF</div>
-      <div class="brightness-control">
-        <label for="brightness3">Brightness:</label>
-        <input type="range" min="0" max="255" value="128" id="brightness3" step="1">
-        <span class="bright-value" id="brightValue3">128</span>
-      </div>
-      <div class="rgb-group">
-        <label>Pick Color:</label>
-        <input type="color" id="colorPicker" value="#ffff00">
-      </div>
-      <table class="color-table">
-        <tr>
-          <td style="background:#ff0000" data-color="#ff0000"></td>
-          <td style="background:#00ff00" data-color="#00ff00"></td>
-          <td style="background:#0000ff" data-color="#0000ff"></td>
-        </tr>
-        <tr>
-          <td style="background:#ffff00" data-color="#ffff00"></td>
-          <td style="background:#00ffff" data-color="#00ffff"></td>
-          <td style="background:#ff00ff" data-color="#ff00ff"></td>
-        </tr>
-        <tr>
-          <td style="background:#ffffff" data-color="#ffffff"></td>
-          <td style="background:#000000" data-color="#000000"></td>
-          <td style="background:#888888" data-color="#888888"></td>
-        </tr>
-      </table>
-      <div id="selectedColorBox" style="margin-top:.7rem;font-size:1rem;">
-        Selected: <span id="colorCode">#ff0000</span>
-      </div>
-    </div>
-  </div>
+        const s2 = document.getElementById("switch2"),
+            st2 = document.getElementById("status2"),
+            b2 = document.getElementById("brightness2"),
+            bv2 = document.getElementById("brightValue2");
 
-  <script>
-    function sendUpdate(device, status, brightness = null, color = null) {
-      let url = `/update?device=${device}&status=${status}`;
-      if (brightness !== null) url += `&brightness=${brightness}`;
-      if (color !== null) url += `&color=${encodeURIComponent(color)}`;
-      fetch(url)
-        .then(response => response.text())
-        .then(data => console.log(data))
-        .catch(error => console.error("Error:", error));
-    }
+        s2.addEventListener("change", function () {
+            let t = s2.checked ? "ON" : "OFF";
+            st2.textContent = "Status: " + t;
+            b2.disabled = !s2.checked;
+            sendUpdate("lamp", t, b2.value);
+        });
 
-    const s1 = document.getElementById("switch1"),
-          st1 = document.getElementById("status1");
+        b2.addEventListener("input", function () {
+            bv2.textContent = b2.value;
+            sendUpdate("lamp", s2.checked ? "ON" : "OFF", b2.value);
+        });
 
-    s1.addEventListener("change", function () {
-      let t = s1.checked ? "ON" : "OFF";
-      st1.textContent = "Status: " + t;
-      sendUpdate("speaker", t);
-    });
+        const s3 = document.getElementById("switch3"),
+            st3 = document.getElementById("status3"),
+            b3 = document.getElementById("brightness3"),
+            bv3 = document.getElementById("brightValue3"),
+            cp = document.getElementById("colorPicker"),
+            ct = document.querySelector(".color-table"),
+            cc = document.getElementById("colorCode");
 
-    const s2 = document.getElementById("switch2"),
-          st2 = document.getElementById("status2"),
-          b2 = document.getElementById("brightness2"),
-          bv2 = document.getElementById("brightValue2");
+        let selTD = null;
 
-    s2.addEventListener("change", function () {
-      let t = s2.checked ? "ON" : "OFF";
-      st2.textContent = "Status: " + t;
-      b2.disabled = !s2.checked;
-      sendUpdate("lamp", t, b2.value);
-    });
+        s3.addEventListener("change", function () {
+            const isChecked = s3.checked;
+            let t = isChecked ? "ON" : "OFF";
+            st3.textContent = "Status: " + t;
 
-    b2.addEventListener("input", function () {
-      bv2.textContent = b2.value;
-      sendUpdate("lamp", s2.checked ? "ON" : "OFF", b2.value);
-    });
+            // Disable/enable controls based on switch state
+            b3.disabled = !isChecked;
+            cp.disabled = !isChecked;
+            ct.classList.toggle("disabled", !isChecked);
 
-    const s3 = document.getElementById("switch3"),
-          st3 = document.getElementById("status3"),
-          b3 = document.getElementById("brightness3"),
-          bv3 = document.getElementById("brightValue3"),
-          cp = document.getElementById("colorPicker"),
-          ct = document.querySelector(".color-table"),
-          cc = document.getElementById("colorCode");
+            sendUpdate("rgb", t, b3.value, cp.value);
+        });
 
-    let selTD = null;
+        b3.addEventListener("input", function () {
+            bv3.textContent = b3.value;
+            sendUpdate("rgb", s3.checked ? "ON" : "OFF", b3.value, cp.value);
+        });
 
-    s3.addEventListener("change", function () {
-      let t = s3.checked ? "ON" : "OFF";
-      st3.textContent = "Status: " + t;
-      b3.disabled = !s3.checked;
-      sendUpdate("rgb", t, b3.value, cp.value);
-    });
+        cp.addEventListener("input", function () {
+            cc.textContent = cp.value;
+            if (selTD) selTD.classList.remove("selected");
+            selTD = null;
+            sendUpdate("rgb", s3.checked ? "ON" : "OFF", b3.value, cp.value);
+        });
 
-    b3.addEventListener("input", function () {
-      bv3.textContent = b3.value;
-      sendUpdate("rgb", s3.checked ? "ON" : "OFF", b3.value, cp.value);
-    });
+        ct.addEventListener("click", function (e) {
+            if (e.target.tagName === "TD") {
+                cp.value = e.target.dataset.color;
+                cc.textContent = e.target.dataset.color;
+                if (selTD) selTD.classList.remove("selected");
+                e.target.classList.add("selected");
+                selTD = e.target;
+                sendUpdate("rgb", s3.checked ? "ON" : "OFF", b3.value, cp.value);
+            }
+        });
 
-    cp.addEventListener("input", function () {
-      cc.textContent = cp.value;
-      if (selTD) selTD.classList.remove("selected");
-      selTD = null;
-      sendUpdate("rgb", s3.checked ? "ON" : "OFF", b3.value, cp.value);
-    });
+        window.addEventListener("DOMContentLoaded", () => {
+            const isRgbChecked = s3.checked;
 
-    ct.addEventListener("click", function (e) {
-      if (e.target.tagName === "TD") {
-        cp.value = e.target.dataset.color;
-        cc.textContent = e.target.dataset.color;
-        if (selTD) selTD.classList.remove("selected");
-        e.target.classList.add("selected");
-        selTD = e.target;
-        sendUpdate("rgb", s3.checked ? "ON" : "OFF", b3.value, cp.value);
-      }
-    });
+            b2.disabled = !s2.checked;
+            b3.disabled = !isRgbChecked;
+            cp.disabled = !isRgbChecked;
+            ct.classList.toggle("disabled", !isRgbChecked);
 
-    window.addEventListener("DOMContentLoaded", () => {
-      b2.disabled = !s2.checked;
-      b3.disabled = !s3.checked;
-      st1.textContent = "Status: " + (s1.checked ? "ON" : "OFF");
-      st2.textContent = "Status: " + (s2.checked ? "ON" : "OFF");
-      st3.textContent = "Status: " + (s3.checked ? "ON" : "OFF");
-      bv2.textContent = b2.value;
-      bv3.textContent = b3.value;
-      cc.textContent = cp.value.toLowerCase();
-      const selectedCell = ct.querySelector(`td[data-color="${cp.value.toLowerCase()}"]`);
-      if (selectedCell) {
-        selectedCell.classList.add("selected");
-        selTD = selectedCell;
-      }
-    });
-  </script>
+            st2.textContent = "Status: " + (s2.checked ? "ON" : "OFF");
+            st3.textContent = "Status: " + (isRgbChecked ? "ON" : "OFF");
+            bv2.textContent = b2.value;
+            bv3.textContent = b3.value;
+            cc.textContent = cp.value.toLowerCase();
+
+            const selectedCell = ct.querySelector(`td[data-color="${cp.value.toLowerCase()}"]`);
+            if (selectedCell) {
+                selectedCell.classList.add("selected");
+                selTD = selectedCell;
+            }
+        });
+    </script>
 </body>
+
 </html>
