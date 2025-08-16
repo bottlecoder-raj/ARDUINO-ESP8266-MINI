@@ -227,8 +227,8 @@ const byte PROGMEM WIFI[][512] = {
 };
 
 // ======== WiFi Credentials =========
-const char *ssid = "Raj_4g";
-const char *password = "55556666";
+const char *ssid = "User_name";//put username
+const char *password = "*******";//put password
 
 // ======== Time Setup =========
 WiFiUDP ntpUDP;
