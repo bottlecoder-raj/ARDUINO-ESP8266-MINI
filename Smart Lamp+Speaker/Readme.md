@@ -84,6 +84,7 @@ You can add more, if you need but remember to do the changes in the code also an
  <ul>
   <li> BEFORE UPLOADING: Update with your wifi credentials at line 230 and 231.</li>
   <li>Check the pins connected from line 12-16</li>
+  <li><a href="https://animator.wokwi.com/">Look for different animations<a/></li>
   <li>Required instruction will be provided in code as comments</li>
  
  </ul>
