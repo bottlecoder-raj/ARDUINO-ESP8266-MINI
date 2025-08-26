@@ -74,13 +74,11 @@ void loop() {
   Serial.print(" Z:"); Serial.println(angleZ, 2);
 
   // Blink interval based on angleX
-  if (angleX < 75) {
-    blinkInterval = 20;   // very fast blink
+  if (angleX < 65) {
+    blinkInterval = 50;   // very fast blink
   } else if (angleX < 85) {
-    blinkInterval = 50;   // medium speed
-  } else if (angleX < 90) {
-    blinkInterval = 100;  // slower
-  } else {
+    blinkInterval = 100;   // medium speed
+  }  else {
     blinkInterval = 500;  // normal
   }
 
@@ -90,6 +88,7 @@ void loop() {
     ledState = !ledState;
     digitalWrite(LED_PIN, ledState);
   }
+
 
   // No delay() here → loop runs fast for sensor updates
 }
