@@ -2,14 +2,14 @@
 #include <Servo.h>
 Servo myservo;  // create servo object to control a servo
 bool motor_status = true;
-int sms_stat=0;
+bool sms_stat=false;
 
 // NodeMCU pins for SIM900L
 SoftwareSerial sim900(D5, D6);  // RX, TX
 
 #define LED_PIN D0   // GPIO14 - LED connected here
 
-String senderNumber = "+919702789546";
+String senderNumber = "+918169456269";
 
 void setup() {
   Serial.begin(115200);
@@ -42,37 +42,35 @@ void loop() {
 
     sms.toUpperCase(); // make comparison case-insensitive
 
-    if (sms.indexOf("ON") >= 0) {
+    if (sms.indexOf("ON") >= 0 && sms_stat==false ) {
+      sms_stat=true;
       delay(500);
-      sms_stat+=1;
        Serial.println("IRRIGATION Turned ON");
-      if(sms_stat==1){
       sendSMS(senderNumber, "MOTOR is now ON");
-      } sms_stat=0;
+      
       Serial.print("STATUS:");
         Serial.println(sms_stat); //motorOn();
       digitalWrite(LED_PIN, LOW);
         myservo.write(180);
         delay(500);
      }
-    else if (sms.indexOf("OFF") >= 0) {
-      sms_stat+=2;
+    else if (sms.indexOf("OFF") >= 0 && sms_stat==true ) {
+      sms_stat= false;
       Serial.println("IRRIGATION Turned OFF");
-      if(sms_stat==2){
-      sendSMS(senderNumber, "MOTOR is now OFF");}
-      sms_stat=0;
+      sendSMS(senderNumber, "MOTOR is now OFF");
       digitalWrite(LED_PIN, HIGH);
       Serial.print("STATUS:");
       Serial.println(sms_stat); 
       myservo.write(0);
         delay(500);    }
   }
+      
 }
 
 // Function to send SMS
 void sendSMS(String number, String text) {
   if (number.length() == 0) {
-    number = "+919702789546"; // fallback: put your number here
+    number = "+918169456269"; // fallback: put your number here
   }
 
   sim900.println("AT+CMGF=1"); // text mode
