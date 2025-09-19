@@ -4,10 +4,10 @@
 #include <WiFiClientSecure.h>
 #include <ESP8266HTTPClient.h>
 
-const char* ssid = "User_name";
-const char* password = "*******";
-String botToken = "token";  // Your Bot Token
-String chatId = "ID";                                        // Your Chat ID
+const char* ssid = "0";
+const char* password = "0";
+String botToken = ".".  // Your Bot Token
+String chatId = ".";                                        // Your Chat ID
 
 MPU6050 mpu;
 unsigned long idleStart = 0;
@@ -35,7 +35,7 @@ void setup() {
   Wire.setClock(400000);  // Fast I2C
   pinMode(LED_PIN, OUTPUT);
   pinMode(D0, OUTPUT);
-  digitalWrite(D0, HIGH);
+  digitalWrite(D0, LOW);
 
   Serial.println("Initializing MPU6050...");
   mpu.initialize();
@@ -61,8 +61,14 @@ void setup() {
   Serial.println("\nConnected to WiFi");
   Serial.println(WiFi.localIP());
 
+   digitalWrite(D0, LOW);
+  delay(1000);
+  digitalWrite(D0, HIGH);
+  delay(500);
   digitalWrite(D0, LOW);
-
+  delay(1000);
+  digitalWrite(D0, HIGH);
+ 
   //WIFI INITIATION..
   WiFiClientSecure client;
   client.setInsecure();  // 👈 Skip certificate validation (easy way)
@@ -142,11 +148,11 @@ void loop() {
 
   // ---- Telegram Notification ----
   static unsigned long lastNotification = 0;   // store last sent time
-  const unsigned long notifyInterval = 10000;  // 30 sec between messages
+  const unsigned long notifyInterval = 20000;  // 20 sec between messages
 
   unsigned long idleSecs = idleDuration / 1000;
 
-  // If slouching for more than 5 sec AND last message was >30 sec ago
+  // If slouching for more than 10 sec AND last message was >30 sec ago
   if (idleSecs >= 10 && (now - lastNotification >= notifyInterval)) {
     WiFiClientSecure client;
     client.setInsecure();  // IMPORTANT for HTTPS
