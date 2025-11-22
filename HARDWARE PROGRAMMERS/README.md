@@ -13,6 +13,15 @@
 <ul>
   <li>Upload the ArduinoISP program from Examples in the programmer board.</li>
   <li>Now write your code to upload on the target arduino setting the programmer as Arduino as ISP and CAUTION: Upload using programmer only (Dont' click on the upload button).Go to sketch and look for upload using programmer.</li>
-  
+  <br>
+  <pre>
+Arduino Uno	→	Arduino Nano | Arduino Uno(check for ICSP pinout)
+5V	→	5V    | 5V
+GND	→	GND   | GND
+D10	→	RESET | RESET
+D11	→	D11   | MOSI
+D12	→	D12   | MISO 
+D13	→	D13   | SCK
+  </pre>
   
 </ul>
