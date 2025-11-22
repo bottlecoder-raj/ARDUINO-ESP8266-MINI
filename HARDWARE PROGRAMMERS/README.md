@@ -1,1 +1,1 @@
-Hello world
+"C:\Users\BOTTLE\AppData\Local\Arduino15\packages\arduino\tools\avrdude\6.3.0-arduino17\bin\avrdude.exe" -C C:/AVR8051.conf -c stk500v1 -P COM15 -p 89s51 -b 19200 -U flash:w:"S:\2.SE_Progress\Keil\Blink\Objects\Blink_AT89S51.hex":a
