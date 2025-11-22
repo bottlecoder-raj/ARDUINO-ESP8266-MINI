@@ -9,3 +9,10 @@
 <p>"C:\Users\BOTTLE\AppData\Local\Arduino15\packages\arduino\tools\avrdude\6.3.0-arduino17\bin\avrdude.exe" -C C:/AVR8051.conf -c stk500v1 -P COM15 -p 89s51 -b 19200 -U flash:w:"S:\2.SE_Progress\Keil\Blink\Objects\Blink_AT89S51.hex":a</p>
 <hr>
 
+<h3>How to program arduino using arduino as ISP?</h3>
+<ul>
+  <li>Upload the ArduinoISP program from Examples in the programmer board.</li>
+  <li>Now write your code to upload on the target arduino setting the programmer as Arduino as ISP and CAUTION: Upload using programmer only (Dont' click on the upload button).Go to sketch and look for upload using programmer.</li>
+  
+  
+</ul>
