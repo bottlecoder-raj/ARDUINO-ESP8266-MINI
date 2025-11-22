@@ -2,7 +2,13 @@
 <ul>
   <li>Download the AVR8051.conf file in C drive</li>
   <li>Locate the avrdude.exe file in arduino folders in user</li>
-  <li>Create your HEX file and upload through terminal</li>
+  <li>Create your HEX file and upload through terminal using the code below making changes accordingly for:</li>
+    <ol>
+      <li>COM PORT</li>
+      <li>BAUD RATE (Should be same as ARDUINO CODE)</li>
+      <li>CHIP NAME (AT89S51/AT89S52)</li>
+      <li>Path Address of avrdude.exe,AVR8051.conf and .hex file </li>
+    </ol>
 
 
 </ul>
