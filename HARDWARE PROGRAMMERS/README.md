@@ -32,7 +32,7 @@ D13	→	D13   | SCK
   <li>Make the connections as mentioned above.</li>
   <li>Before uploading, select the proper board from tools and setting programmer as <strong>Arduino as ISP</strong>.</li>
   <li><strong>NOTE:</strong>For arduino Uno SMD versions the device signature are not same so download this board using the link below. </li>
-  <li>GO to file → Preferences → Additional board urls → Ok </li>
+  <li>GO to file → Preferences → Additional board urls → Copy the link below → Paste → Ok </li>
   <li>Tools → Board → Board Manager → Search for MiniCore → Install.</li>
   <li>After installing → Tools → Board → MiniCore → Atmega328</li>
   <pre>https://mcudude.github.io/MiniCore/package_MCUdude_MiniCore_index.json</pre>
