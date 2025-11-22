@@ -32,6 +32,7 @@ D13	→	D13   | SCK
   <li>Make the connections as mentioned above.</li>
   <li>Before uploading, select the proper board from tools and setting programmer as <strong>Arduino as ISP</strong>.</li>
   <li>Tools → Board → UNO/nano → Processor(if present) → 168/328/328(old bootloader) → Programmer : Arduino as ISP → Burn bootloader → Sketch → Upload using Programmer </li>
+  <p>Congratulations!!!!!</p>
   <li><strong>NOTE:</strong>For arduino Uno SMD versions the device signature are not same so download this board using the link below. </li>
   <li>GO to file → Preferences → Additional board urls → Copy the link below → Paste → Ok </li>
   <li>Tools → Board → Board Manager → Search for MiniCore → Install.</li>
