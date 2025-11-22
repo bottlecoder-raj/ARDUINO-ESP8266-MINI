@@ -1,4 +1,4 @@
-<h3>Command to upload code via Arduino using Isp. Upload code in arduino as arduino as isp and then upload your code for 8051 in terminal running the command mentioned below.</h3>
+<h3>8051 Programmer [AT89S51/52] using Arduino as ISP</h3>
 <ul>
   <li>Download the AVR8051.conf file in C drive</li>
   <li>Locate the avrdude.exe file in arduino folders in user</li>
