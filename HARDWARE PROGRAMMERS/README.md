@@ -29,5 +29,9 @@ D11	→	D11   | MOSI
 D12	→	D12   | MISO 
 D13	→	D13   | SCK
   </pre>
-  
+  <li>Make the connections as mentioned above.</li>
+  <li>Before uploading, select the proper board from tools and setting programmer as <h4>Arduino as ISP</h4>.</li>
+  <li><h4>NOTE:</h4>For arduino Uno SMD versions the device signature are not same so download this board using the link below. </li>
+  <pre>https://mcudude.github.io/MiniCore/package_MCUdude_MiniCore_index.json</pre>
+  <li>check for the chip on the board using camera and select the chip in tools</li>
 </ul>
