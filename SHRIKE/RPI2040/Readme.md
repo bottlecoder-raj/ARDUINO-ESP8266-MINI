@@ -34,18 +34,16 @@ The following Arduino sketch blinks the onboard LED connected to <b>GPIO 4</b>.
 </p>
 
 <pre><code>
+
 // Shrike-Lite RP2040 LED Blink Example
-
-#define LED_PIN 4   // MCU-controlled LED on Shrike-Lite
-
 void setup() {
-  pinMode(LED_PIN, OUTPUT);
+  pinMode(4, OUTPUT);
 }
 
 void loop() {
-  digitalWrite(LED_PIN, HIGH);  // LED ON
+  digitalWrite(4, HIGH);  // LED ON
   delay(500);                   // Wait 500 ms
-  digitalWrite(LED_PIN, LOW);   // LED OFF
+  digitalWrite(4, LOW);   // LED OFF
   delay(500);                   // Wait 500 ms
 }
 </code></pre>
