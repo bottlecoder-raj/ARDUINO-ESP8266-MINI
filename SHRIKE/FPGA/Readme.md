@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>SHRIKE-LITE FPGA LED Blink Test</title>
-   <body>
+       <body>
 
 <h1>SHRIKE-LITE FPGA Configuration with LED Blink Test</h1>
 
