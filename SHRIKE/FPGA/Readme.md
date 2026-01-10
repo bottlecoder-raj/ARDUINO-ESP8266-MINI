@@ -85,7 +85,7 @@ and run a simple <strong>LED blink test</strong>.
     <li>The <code>main.v</code> file and <strong>I/O Planner</strong> will open side by side.</li>
     <li>Open <code>main.v</code> and upload the LED blink code from:
         <br>
-        <a href="https://github.com/vicharakin/shrike/tree/main/examples/led_blink" target="_blank">
+        <a href="https://github.com /vicharakin/shrike/tree/main/examples/led_blink" target="_blank">
             LED Blink Example Repository
         </a>
     </li>
