@@ -3,48 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>SHRIKE-LITE FPGA LED Blink Test</title>
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            line-height: 1.6;
-            margin: 40px;
-            background-color: #f9f9f9;
-            color: #333;
-        }
-        h1, h2, h3 {
-            color: #0b5394;
-        }
-        code {
-            background-color: #eee;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: Consolas, monospace;
-        }
-        pre {
-            background-color: #eee;
-            padding: 15px;
-            border-radius: 6px;
-            overflow-x: auto;
-        }
-        ul, ol {
-            margin-left: 25px;
-        }
-        a {
-            color: #1155cc;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        .note {
-            background-color: #fff3cd;
-            border-left: 6px solid #ffc107;
-            padding: 10px;
-            margin: 20px 0;
-        }
-    </style>
-</head>
-<body>
+   <body>
 
 <h1>SHRIKE-LITE FPGA Configuration with LED Blink Test</h1>
 
@@ -225,7 +184,8 @@ shrike.flash("FPGA_bitstream_MCU.bin")
 <p>
 🎉 The built-in FPGA LED on the <strong>Shrike-Lite</strong> board should now start blinking.
 </p>
-
+</body>
+</html>
 <hr>
 
 <p><strong>Author / Reference:</strong> Shrike FPGA Examples</p>
