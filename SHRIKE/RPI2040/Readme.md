@@ -1,26 +1,83 @@
-1. Set Up the Arduino IDE
-Open Arduino IDE.
+<h2>1. Set Up the Arduino IDE</h2>
 
-Go to File > Preferences.
+<ol>
+  <li>Open the Arduino IDE.</li>
+  <li>Go to <b>File &gt; Preferences</b>.</li>
+  <li>
+    In <b>Additional Boards Manager URLs</b>, paste the following link:
+    <br>
+    <code>https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json</code>
+  </li>
+  <li>
+    Go to <b>Tools &gt; Board &gt; Boards Manager</b>, search for <b>RP2040</b>,
+    and install the <b>Raspberry Pi Pico/RP2040</b> core by
+    <b>Earle Philhower</b>.
+  </li>
+</ol>
 
-*In "Additional Boards Manager URLs", paste this link:* https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json
+<h2>2. Identify the Pin</h2>
 
-Go to Tools > Board > Boards Manager, search for RP2040, and install the "Raspberry Pi Pico/RP2040" core by Earle Philhower.
+<p>
+On the Shrike-Lite, there are two main LEDs. One is connected to the FPGA,
+and the other is connected to the RP2040.
+</p>
 
-2. Identify the Pin
-On the Shrike-Lite, there are two main LEDs. One is connected to the FPGA, and the other is connected to the RP2040. According to the Vicharak pinout, the MCU-controlled LED is typically on GPIO 4 (the same as the standard Raspberry Pi Pico).
+<p>
+According to the Vicharak pinout, the MCU-controlled LED is typically connected
+to <b>GPIO 4</b>, which is the same as the standard Raspberry Pi Pico.
+</p>
 
-*How to Upload*
-Connect the Board: Plug the Shrike-Lite into your computer via USB-C.
+<h2>3. Blink LED Example Code</h2>
 
-Bootloader Mode: * Hold down the BOOT button on the board.
+<p>
+The following Arduino sketch blinks the onboard LED connected to <b>GPIO 4</b>.
+</p>
 
-Press and release the RESET button.
+<pre><code>
+// Shrike-Lite RP2040 LED Blink Example
 
-Release the BOOT button.
+#define LED_PIN 4   // MCU-controlled LED on Shrike-Lite
 
-The board should now appear on your computer as a USB drive named *RPI-RP2.*
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+}
 
-Select Board: In Arduino IDE, go to Tools > Board and select *Raspberry Pi Pico.*
+void loop() {
+  digitalWrite(LED_PIN, HIGH);  // LED ON
+  delay(500);                   // Wait 500 ms
+  digitalWrite(LED_PIN, LOW);   // LED OFF
+  delay(500);                   // Wait 500 ms
+}
+</code></pre>
 
-Upload: Click the Upload arrow. The IDE will compile the code and automatically move it to the board.
+<h2>How to Upload</h2>
+
+<ol>
+  <li>
+    <b>Connect the Board:</b>
+    Plug the Shrike-Lite into your computer using a USB-C cable.
+  </li>
+
+  <li>
+    <b>Enter Bootloader Mode:</b>
+    <ul>
+      <li>Hold down the <b>BOOT</b> button.</li>
+      <li>Press and release the <b>RESET</b> button.</li>
+      <li>Release the <b>BOOT</b> button.</li>
+    </ul>
+    The board should appear on your computer as a USB drive named
+    <b>RPI-RP2</b>.
+  </li>
+
+  <li>
+    <b>Select Board:</b>
+    In the Arduino IDE, go to <b>Tools &gt; Board</b> and select
+    <b>Raspberry Pi Pico</b>.
+  </li>
+
+  <li>
+    <b>Upload:</b>
+    Click the <b>Upload</b> button. The IDE will compile the code and
+    automatically upload it to the board.
+  </li>
+</ol>
